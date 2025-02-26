@@ -11,4 +11,6 @@ Required Features:
 [✔] Make the site responsive for both desktop and mobile formats
 
 
-![Project_1_Walkthrough](https://github.com/user-attachments/assets/63b97f84-2296-4a12-be7b-ae441c98f239)
+
+https://github.com/user-attachments/assets/66dc1c01-6e3a-41f0-a7fb-17b2eaa6f1c8
+
