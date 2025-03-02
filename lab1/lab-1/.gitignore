@@ -28,6 +28,8 @@ dist-ssr
 #files
 *.json
 eslint.config.js
+*.config
+*.config.js
 
 
 # Node modules
