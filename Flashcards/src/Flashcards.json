@@ -1,0 +1,34 @@
+{
+  "deck": {
+    "trivia/Fun at all parties!": [
+      ["What year did the Titanic sink?", "1912"],
+      ["Who painted the Mona Lisa?", "Leonardo da Vinci"],
+      ["What is the smallest country in the world?", "Vatican City"],
+      ["Which planet is known as the Red Planet?", "Mars"],
+      ["Who developed the theory of relativity?", "Albert Einstein"]
+    ],
+    "physics/Would you make Newton proud?": [
+      [
+        "What is Newton's first law of motion?",
+        "An object in motion stays in motion unless acted upon by an external force."
+      ],
+      [
+        "What is the speed of light in a vacuum?",
+        "299,792,458 meters per second"
+      ],
+      ["What is the unit of force?", "Newton (N)"],
+      [
+        "What phenomenon explains why time slows down at high speeds?",
+        "Time dilation"
+      ],
+      ["What is the formula for kinetic energy?", "KE = 1/2 mv^2"]
+    ],
+    "chemistry/Did they get the pizza down?": [
+      ["What is the atomic number of hydrogen?", "1"],
+      ["What is the most abundant gas in Earth's atmosphere?", "Nitrogen"],
+      ["What is the chemical formula for table salt?", "NaCl"],
+      ["What is Avogadro’s number?", "6.022 × 10^23"],
+      ["What type of bond forms between two nonmetals?", "Covalent bond"]
+    ]
+  }
+}
