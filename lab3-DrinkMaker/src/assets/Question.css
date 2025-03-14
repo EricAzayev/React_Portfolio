@@ -1,0 +1,6 @@
+.decorated-bar {
+  flex-grow: 1;
+  height: 2px;
+  background-color: #ccc;
+  margin-left: 10px;
+}

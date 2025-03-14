@@ -1,33 +1,28 @@
+import { useState } from "react";
 import React from "react";
 
-const Question = (handleChange, title, choices, checked) => {
-  const [display, setDisplay] = useState("");
-
+function Question({ label, choices, checked, handleChange }) {
   return (
-    <>
-      <div>
-        <h1>{title}</h1>
-        <div className="displayUserInput">
-          <h3>{display}</h3>
-        </div>
-        <div className="radio-buttons">
-          {choices &&
-            choices.map((choice) => (
-              <li key={choice}>
-                <input
-                  id={choice}
-                  value={choice}
-                  name={label}
-                  type="radio"
-                  onChange={handleChange}
-                  checked={checked == choice}
-                />
-                {choice}
-              </li>
-            ))}
-        </div>
+    <div className="question">
+      <label>{label}</label>
+      <div className="user_selected">
+        <h3>{checked}</h3>
+        <span className="decorated-bar"></span>
       </div>
-    </>
+      {choices.map((choice) => (
+        <div key={choice}>
+          <input
+            type="radio"
+            name={label}
+            value={choice}
+            checked={checked === choice}
+            onChange={handleChange}
+          />
+          {choice}
+        </div>
+      ))}
+    </div>
   );
-};
+}
+
 export default Question;
