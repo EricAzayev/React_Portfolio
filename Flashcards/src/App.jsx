@@ -74,6 +74,25 @@ function App() {
       <h2>
         Card Number: {card + 1} / {deck[cat]?.length ?? 0}
       </h2>
+      <div className="user-guess">
+        <h3>What is your guess?</h3>
+        <input id="userInput" type="text"></input>
+        <button
+          type="submit"
+          onClick={() => {
+            const inputVal = document.getElementById("userInput").value;
+            const inputArea = document.getElementById("userInput");
+            if (inputVal === deck[cat][card][1]) {
+              inputArea.style.backgroundColor = "green";
+              setSide(1);
+            } else {
+              inputArea.style.backgroundColor = "red";
+            }
+          }}
+        >
+          Submit
+        </button>
+      </div>
 
       <div
         onClick={() => setSide(side === 0 ? 1 : 0)}
@@ -86,6 +105,10 @@ function App() {
         <button
           onClick={() => {
             if (card > 0) setCard(card - 1);
+            setSide(0);
+            const inp = document.getElementById("userInput");
+            inp.val = "";
+            inp.style.backgroundColor = "white";
           }}
         >
           Previous Card
@@ -93,6 +116,9 @@ function App() {
         <button
           onClick={() => {
             if (card < deck[cat].length - 1 || randShuffle) {
+              const inp = document.getElementById("userInput");
+              inp.val = "";
+              inp.style.backgroundColor = "white";
               if (randShuffle) {
                 let rand = Math.floor(Math.random() * deck[cat].length);
                 while (rand === card) {
@@ -123,6 +149,9 @@ function App() {
         <button
           onClick={() => {
             if (cat > 0) {
+              const inp = document.getElementById("userInput");
+              inp.val = "";
+              inp.style.backgroundColor = "white";
               setCard(0);
               setSide(0);
               setCategory(cat - 1);
@@ -134,6 +163,9 @@ function App() {
         <button
           onClick={() => {
             if (cat < deck.length - 1) {
+              const inp = document.getElementById("userInput");
+              inp.val = "";
+              inp.style.backgroundColor = "white";
               setCard(0);
               setSide(0);
               setCategory(cat + 1);
