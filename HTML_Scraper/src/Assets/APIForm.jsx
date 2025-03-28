@@ -9,13 +9,25 @@ export default function APIForm({ inputs, handleChange, onSubmit }) {
     "Choose the width of your screenshot (in pixels)",
     "Choose the height of your screenshot (in pixels)",
   ];
+  let formStyle = {
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)",
+  };
+  let form = {
+    background: "lightblue",
+    padding: "20px",
+    borderRadius: "10px",
+    margin: "10px",
+    listStyleType: "none",
+    display: "grid",
+  };
   return (
     <>
       <h2>"Select Your Image Attributes:</h2>
-      <form className="form-container">
+      <form className="form-container" style={formStyle}>
         {inputs &&
           Object.entries(inputs).map(([category, value], index) => (
-            <li className="form" key={index}>
+            <li className="form" key={index} style={form}>
               <h2>{category} </h2>
               <input
                 type="text"
@@ -27,7 +39,6 @@ export default function APIForm({ inputs, handleChange, onSubmit }) {
               />
               <br></br>
               <br></br>
-
               <p> {inputsInfo[index]}</p>
             </li>
           ))}

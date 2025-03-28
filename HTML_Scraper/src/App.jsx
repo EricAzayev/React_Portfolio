@@ -1,5 +1,6 @@
 import { useState } from "react";
 import APIForm from "./assets/APIForm.jsx";
+import Gallery from "./assets/Gallery.jsx";
 
 import "./App.css";
 const ACCESS_KEY = import.meta.env.VITE_APP_ACCESS_KEY;
@@ -23,6 +24,7 @@ function App() {
       height: "",
     });
   };
+  const [prevImages, setPrevImages] = useState([]);
   const [imageURL, setImageURL] = useState("");
   const callAPI = async (query) => {
     const respone = await fetch(query);
@@ -30,7 +32,8 @@ function App() {
     if (json.url == null) {
       alert("Oops! Something went wrong with that query, let's try again!");
     } else {
-      setCurrentImage(json.url);
+      setImageURL(json.url);
+      setPrevImages((images) => [...images, json.url]);
       reset();
     }
   };
@@ -66,8 +69,21 @@ function App() {
   };
 
   return (
-    <div className="whole-page">
-      <h1>Build Your Own Screenshot! 📸</h1>
+    <div
+      className="whole-page"
+      style={{ background: "#335574", color: "black" }}
+    >
+      <h1 style={{ padding: "10px" }}>Build Your Own Screenshot! 📸</h1>
+      <div>
+        <h3>Paste your key🔑 here: </h3>
+        <input
+          type="password"
+          name="access_key"
+          value={ACCESS_KEY}
+          placeholder="Input this attribute..."
+          className="textbox"
+        />
+      </div>
 
       <APIForm
         inputs={inputs}
@@ -79,6 +95,34 @@ function App() {
         }
         onSubmit={submitForm}
       />
+      <br></br>
+      {imageURL ? (
+        <img className="screenshot" src={imageURL} alt="Screenshot returned" />
+      ) : (
+        <div>Nothing to Display</div>
+      )}
+
+      <div className="container" style={{ background: "lightblue" }}>
+        <h3> Current Query Status: </h3>
+        <p>
+          https://api.apiflash.com/v1/urltoimage?access_key=ACCESS_KEY
+          <br></br>
+          &url={inputs.url} <br></br>
+          &format={inputs.format} <br></br>
+          &width={inputs.width}
+          <br></br>
+          &height={inputs.height}
+          <br></br>
+          &no_cookie_banners={inputs.no_cookie_banners}
+          <br></br>
+          &no_ads={inputs.no_ads}
+          <br></br>
+        </p>
+      </div>
+      <div className="gallery">
+        <Gallery prevImages={prevImages} />
+      </div>
+
       <br></br>
     </div>
   );
