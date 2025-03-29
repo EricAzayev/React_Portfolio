@@ -22,17 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-*.config.js
-*.config.ts
 
-package-lock.json
-package.json
-
-
-
-!*.jsx
-!*.png
-!*.css
-
-!.gitignore
+.env
 
