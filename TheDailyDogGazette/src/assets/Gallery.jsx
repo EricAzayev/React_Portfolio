@@ -1,8 +1,7 @@
 import React from "react";
 
-const Gallery = (pastUrls) => {
-  //pastUrls is a 2D array where pastUrls[i][0] is the url of the image
-  //pastUrls[i][1] is the name of the image
+const Gallery = ({ pastUrls = [] }) => {
+  //pastUrls is a 1D array of url strings
 
   return (
     <div className="gallery">
@@ -10,11 +9,12 @@ const Gallery = (pastUrls) => {
       <div className="gallery-images">
         {pastUrls.map((image, index) => (
           <div key={index} className="gallery-image">
-            <img src={image[0]} alt={image[1]} />
-            <p>{image[1]}</p>
+            <img src={image} alt={`Gallery Image ${index + 1}`} />
           </div>
         ))}
       </div>
     </div>
   );
 };
+
+export default Gallery;

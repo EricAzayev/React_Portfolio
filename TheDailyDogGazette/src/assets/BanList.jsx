@@ -1,15 +1,19 @@
 import React from "react";
 
-const BanList = (bannedAttributes) => {
-  let span = {
+const BanList = ({ bannedAttributes = [], setBannedAttributes }) => {
+  function clearBanList() {
+    setBannedAttributes([]);
+  }
+  let containerStyle = {
     backgroundColor: "grey",
     color: "white",
-    padding: "5px",
+    padding: "10px",
     borderRadius: "5px",
     fontWeight: "bold",
-    height: "100px",
+    minHeight: "100px", // Ensures it doesn't collapse if empty
   };
-  let listicle = {
+
+  let listStyle = {
     listStyleType: "none",
     padding: "0",
     margin: "0",
@@ -18,16 +22,22 @@ const BanList = (bannedAttributes) => {
   };
 
   return (
-    <div className="ban-list" style={span}>
-      <h2>Ban List</h2>
-      <ul>
-        {bannedAttributes.map((attribute, index) => (
-          <li key={index} style={listicle}>
-            {attribute}
-          </li>
-        ))}
-      </ul>
+    <div className="ban-list" style={containerStyle}>
+      <div>
+        <h2>Ban List</h2>
+        <button onClick={clearBanList}>Clear</button>
+      </div>
+      {bannedAttributes.length === 0 ? (
+        <p>No banned attributes.</p>
+      ) : (
+        <ul style={listStyle}>
+          {bannedAttributes.map((attribute, index) => (
+            <li key={index}>{attribute}</li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
-export default BanList; // Exporting the BanList component as the default export of the module.
+
+export default BanList;
