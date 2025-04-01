@@ -1,12 +1,12 @@
-# React + Vite
+https://github.com/user-attachments/assets/ccb1417d-2c4c-421d-9e2b-d7d278f0001a
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+✅ API Button: Triggers request, displays attribute & 1 image.
+✅ Single Result: Only 1 item/image shown per call.
+✅ Random Results: Results appear random; repeats are allowed but rare.
+✅ Clickable Attribute: Clicking adds to ban list.
+✅ Ban List: Clicking in ban list removes attribute.
+✅ No Banned Results: API button avoids banned attributes.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
