@@ -4,6 +4,13 @@ const BanList = ({ bannedAttributes = [], setBannedAttributes }) => {
   function clearBanList() {
     setBannedAttributes([]);
   }
+
+  function unban(attributeToRemove) {
+    setBannedAttributes((prev) =>
+      prev.filter((attr) => attr !== attributeToRemove)
+    );
+  }
+
   let containerStyle = {
     backgroundColor: "grey",
     color: "white",
@@ -32,7 +39,13 @@ const BanList = ({ bannedAttributes = [], setBannedAttributes }) => {
       ) : (
         <ul style={listStyle}>
           {bannedAttributes.map((attribute, index) => (
-            <li key={index}>{attribute}</li>
+            <li
+              key={index}
+              onClick={() => unban(attribute)}
+              style={{ cursor: "pointer" }}
+            >
+              {attribute} ❌
+            </li>
           ))}
         </ul>
       )}

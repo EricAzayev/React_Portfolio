@@ -1,4 +1,5 @@
 import React from "react";
+import "./Panel.css";
 
 const listicle = {
   display: "inline-block",
@@ -29,9 +30,7 @@ function Panel({ imageUrl, attribute, setBannedAttributes, next }) {
       <div id="attributeList">
         <li
           style={listicle}
-          onClick={() =>
-            setBannedAttributes((prev) => [...prev, attribute.temperament])
-          }
+          onClick={() => setBannedAttributes((prev) => [...prev, attribute])}
         >
           {attribute}
         </li>
@@ -39,6 +38,7 @@ function Panel({ imageUrl, attribute, setBannedAttributes, next }) {
 
       {imageUrl && (
         <img
+          className="image"
           id="currentDog"
           src={imageUrl}
           alt="Random Dog"

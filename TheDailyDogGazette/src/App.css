@@ -4,10 +4,28 @@ html {
   justify-content: center;
 }
 .AppDiv {
-  display: flex;
-  flex-direction: column; /* Keeps content stacked vertically */
-  align-items: center; /* Centers horizontally */
-  justify-content: center; /* Centers vertically */
+  gap: 10px;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.control {
+  max-height: 750px;
+  overflow-y: auto;
+}
+.Gallery,
+.BanList {
+  height: 500px;
+  max-height: 700px;
+  width: 200px;
+  align-items: flex-start;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  background-color: white;
 }
 .root {
   display: flex;

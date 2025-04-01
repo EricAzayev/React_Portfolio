@@ -25,6 +25,8 @@ function App() {
   );
   const [attributes, setAttributes] = useState([
     "Buddy",
+    "Georgie",
+    "Luna",
     "Charlie",
     "Max",
     "Bella",
@@ -33,22 +35,6 @@ function App() {
     "Sadie",
     "Milo",
     "Luna",
-    "Bailey",
-    "Toby",
-    "Zoe",
-    "Rex",
-    "Coco",
-    "Finn",
-    "Bear",
-    "Ruby",
-    "Shadow",
-    "Ace",
-    "Zeus",
-    "Cooper",
-    "Scout",
-    "Rosie",
-    "Bruno",
-    "Moose",
   ]);
   const [index, setIndex] = useState(0);
   const [buttonClick, setButtonClick] = useState(false);
@@ -87,19 +73,19 @@ function App() {
   return (
     <>
       <div className="AppDiv">
-        <div className="SideBySide">
-          <Panel
-            imageUrl={imageUrl}
-            attribute={attributes[index]}
-            setBannedAttributes={setBannedAttributes}
-            next={next}
-          />
-          <BanList
-            bannedAttributes={bannedAttributes}
-            setBannedAttributes={setBannedAttributes}
-          />
+        <BanList
+          bannedAttributes={bannedAttributes}
+          setBannedAttributes={setBannedAttributes}
+        />
+        <Panel
+          imageUrl={imageUrl}
+          attribute={attributes[index]}
+          setBannedAttributes={setBannedAttributes}
+          next={next}
+        />
+        <div class="control">
+          <Gallery pastUrls={pastUrls} />
         </div>
-        <Gallery pastUrls={pastUrls} />
       </div>
     </>
   );
