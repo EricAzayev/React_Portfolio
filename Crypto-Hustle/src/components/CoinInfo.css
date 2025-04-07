@@ -1,0 +1,13 @@
+.main-list {
+  display: flex;
+  align-items: center;
+}
+
+.icons {
+    height: 2.5em;
+    padding-right: 10px;
+}
+
+.tab {
+  padding-left: 10px;
+}

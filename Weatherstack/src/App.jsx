@@ -15,6 +15,19 @@ const cityLocations = new Map([
   ["Cape Town", "lat=-33.9249&lng=18.4241"],
 ]);
 
+const cityCoordinates = {
+  Tokyo: { lat: 35.6895, lng: 139.6917 },
+  "New York": { lat: 40.7128, lng: -74.006 },
+  Paris: { lat: 48.8566, lng: 2.3522 },
+  London: { lat: 51.5074, lng: -0.1278 },
+  Sydney: { lat: -33.8688, lng: 151.2093 },
+  Dubai: { lat: 25.276987, lng: 55.296249 },
+  Singapore: { lat: 1.3521, lng: 103.8198 },
+  Berlin: { lat: 52.52, lng: 13.405 },
+  "Rio de Janeiro": { lat: -22.9068, lng: -43.1729 },
+  "Cape Town": { lat: -33.9249, lng: 18.4241 },
+};
+
 const cityTimeZones = {
   Tokyo: "Asia/Tokyo",
   "New York": "America/New_York",
@@ -43,14 +56,47 @@ function App() {
     "Rio de Janeiro",
     "Cape Town",
   ]);
-  const [removed, setRemoved] = useState();
+  const [removed, setRemoved] = useState([]);
   const [data, setData] = useState({});
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchedCity, setSearchedCity] = useState(null);
+
   function removeCity(city) {
     setCities((prevCities) => prevCities.filter((c) => c !== city));
     setRemoved((prevRemoved) =>
       prevRemoved ? [...prevRemoved, city] : [city]
     );
   }
+
+  const filterByHemisphere = (direction) => {
+    const filteredCities = cities.filter((city) => {
+      const { lat, lng } = cityCoordinates[city];
+      if (direction === "North") return lat > 0;
+      if (direction === "South") return lat < 0;
+      if (direction === "East") return lng > 0;
+      if (direction === "West") return lng < 0;
+      return false;
+    });
+
+    setCities((prevCities) =>
+      prevCities.filter((city) => !filteredCities.includes(city))
+    );
+    setRemoved((prevRemoved) => [...prevRemoved, ...filteredCities]);
+  };
+
+  const handleSearch = () => {
+    if (cities.includes(searchQuery)) {
+      setSearchedCity(searchQuery);
+      removeCity(searchQuery);
+    } else if (removed.includes(searchQuery)) {
+      alert("City is already in the removed list!");
+      setSearchedCity(null);
+    } else {
+      alert("City not found!");
+      setSearchedCity(null);
+    }
+    setSearchQuery("");
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -69,7 +115,7 @@ function App() {
     fetchData();
     const interval = setInterval(fetchData, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [cities]);
 
   const getCurrentTime = (timezone) => {
     return new Intl.DateTimeFormat("en-US", {
@@ -190,8 +236,33 @@ function App() {
   return (
     <div>
       <h1>Sunrise & Sunset Times</h1>
+      <div style={{ marginBottom: "20px" }}>
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Search for a city"
+        />
+        <button onClick={handleSearch}>Search</button>
+      </div>
+      {searchedCity && (
+        <div>
+          <h3>Search Result:</h3>
+          <p>City: {searchedCity}</p>
+          <p>Current Time: {getCurrentTime(cityTimeZones[searchedCity])}</p>
+        </div>
+      )}
+      <div style={{ display: "flex", gap: "20px", marginBottom: "20px" }}>
+        <button onClick={() => filterByHemisphere("North")}>
+          Filter North
+        </button>
+        <button onClick={() => filterByHemisphere("South")}>
+          Filter South
+        </button>
+        <button onClick={() => filterByHemisphere("East")}>Filter East</button>
+        <button onClick={() => filterByHemisphere("West")}>Filter West</button>
+      </div>
       <div style={{ display: "flex", gap: "20px" }}>
-        {/* Main Table */}
         <table border="1">
           <thead>
             <tr>
@@ -219,7 +290,6 @@ function App() {
           </tbody>
         </table>
 
-        {/* Removed Cities Table */}
         <table border="1">
           <thead>
             <tr>
@@ -239,9 +309,8 @@ function App() {
           </tbody>
         </table>
       </div>
-
-      <h2>City with Latest Sunset: {getLatestSunsetCity()}</h2>
-      <h2>City with Earliest Sunrise: {getEarliestSunriseCity()}</h2>
+      <h3>City with Latest Sunset: {getLatestSunsetCity()}</h3>
+      <h3>City with Earliest Sunrise: {getEarliestSunriseCity()}</h3>
     </div>
   );
 }
