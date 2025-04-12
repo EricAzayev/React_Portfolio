@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import "./App.css";
 
@@ -277,7 +278,11 @@ function App() {
           <tbody>
             {cities.map((city) => (
               <tr key={city}>
-                <td>{city}</td>
+                <td>
+                  <Link to={`/detail/${city}`} key={city}>
+                    {city}
+                  </Link>{" "}
+                </td>
                 <td>{data[city]?.sunrise || "Loading..."}</td>
                 <td>{data[city]?.sunset || "Loading..."}</td>
                 <td>{getCurrentTime(cityTimeZones[city])}</td>
