@@ -1,6 +1,16 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+
 import "./App.css";
 
 const cityLocations = new Map([
@@ -234,6 +244,30 @@ function App() {
     setCities((prevCities) => [...prevCities, city]);
   };
 
+  const chartData = cities
+    .filter((city) => data[city]?.sunrise && data[city]?.sunset)
+    .map((city) => {
+      const parse = (t) => {
+        const [h, m, s] = t.split(":").map(Number);
+        return h + m / 60; // Convert to decimal hours
+      };
+      return {
+        name: city,
+        Sunrise: parse(data[city].sunrise),
+        Sunset: parse(data[city].sunset),
+      };
+    });
+
+  const cityTimeProgressData = cities.map((city) => {
+    const currentSeconds = parseTime(getCurrentTime(cityTimeZones[city]));
+    const percentage = ((currentSeconds / 86400) * 100).toFixed(1);
+
+    return {
+      city,
+      progress: percentage,
+    };
+  });
+
   return (
     <div>
       <h1>Sunrise & Sunset Times</h1>
@@ -316,6 +350,36 @@ function App() {
       </div>
       <h3>City with Latest Sunset: {getLatestSunsetCity()}</h3>
       <h3>City with Earliest Sunrise: {getEarliestSunriseCity()}</h3>
+      <h2>Sunrise vs Sunset Time (in Hours)</h2>
+      <ResponsiveContainer width="100%" height={300}>
+        <BarChart
+          data={chartData}
+          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+        >
+          <XAxis dataKey="name" />
+          <YAxis
+            domain={[0, 24]}
+            label={{ value: "Hour of Day", angle: -90, position: "insideLeft" }}
+          />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="Sunrise" fill="#FFD700" />
+          <Bar dataKey="Sunset" fill="#FF4500" />
+        </BarChart>
+      </ResponsiveContainer>
+
+      <h2>Daylight Remaining by City</h2>
+
+      <BarChart width={730} height={250} data={cityTimeProgressData}>
+        <XAxis
+          dataKey="city"
+          tickFormatter={(city) => (city === "Rio de Janeiro" ? "Rio" : city)}
+        />
+        <YAxis unit="%" domain={[0, 100]} />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="progress" fill="#82ca9d" />
+      </BarChart>
     </div>
   );
 }
