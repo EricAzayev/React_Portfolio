@@ -12,8 +12,6 @@ dist
 dist-ssr
 *.local
 
-/web102_unit7lab
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -24,20 +22,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-*.config.js
-*.config.ts
-
-package-lock.json
-package.json
-
-
-
-!*.jsx
-!*.png
-!*.css
-
-!.gitignore
-
-.env
-
-
