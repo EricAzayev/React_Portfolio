@@ -18,7 +18,7 @@ createRoot(document.getElementById("root")).render(
           <Route index={true} element={<App />} />
           <Route index={false} path="/edit/:id" element={<ProfileEdit />} />
 
-          <Route index={false} path="/edit/:id" element={<ProfileCreate />} />
+          <Route index={false} path="/create" element={<ProfileCreate />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
