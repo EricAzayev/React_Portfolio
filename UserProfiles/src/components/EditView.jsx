@@ -68,7 +68,7 @@ const EditView = () => {
       console.error("Error deleting profile:", error);
     } else {
       console.log("Profile deleted successfully");
-      navigate("/"); // Redirect to the main page after deletion
+      navigate("/"); 
     }
   };
 
