@@ -16,6 +16,14 @@ const EditView = () => {
   const [selectedPfp, setSelectedPfp] = useState(null);
   const [uploadedPfp, setUploadedPfp] = useState(null);
   const [youtube, setYoutube] = useState("");
+  const [instagram, setInstagram] = useState("NONE");
+
+  function setYoutubeLink(link) {
+    const processedLink = link
+      .replace("https://youtu.be/", "https://www.youtube.com/embed/")
+      .trim();
+    setYoutube(processedLink);
+  }
 
   // Fetch the profile data to edit
   useEffect(() => {
@@ -40,6 +48,7 @@ const EditView = () => {
                   : "?autoplay=1&mute=0")
             : ""
         );
+        setInstagram(data.instagram || "NONE");
         console.log(data);
       }
     };
@@ -48,7 +57,7 @@ const EditView = () => {
   }, [id]);
 
   const handleSubmit = async () => {
-    if (!name || !bio || !selectedPfp) {
+    if (!name || !bio || !selectedPfp || !instagram) {
       alert("Please fill out all fields and select a profile picture.");
       return;
     }
@@ -57,6 +66,8 @@ const EditView = () => {
       name,
       bio,
       pfp: selectedPfp,
+      youtube,
+      instagram,
     };
 
     const { error } = await supabase
@@ -102,7 +113,7 @@ const EditView = () => {
         margin: "40px auto",
         padding: 32,
         borderRadius: 12,
-        background: "#D0E0EB",
+        background: "#fff",
         boxShadow: "0 2px 16px rgba(0,0,0,0.07)",
         display: "flex",
         flexDirection: "column",
@@ -138,6 +149,25 @@ const EditView = () => {
           }}
         />
       </div>
+      {/* Option to edit the youtube music clip */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <label style={{ fontWeight: 500, marginBottom: 4 }}>
+          Youtube Music Clip:
+        </label>
+        <input
+          type="text"
+          value={youtube}
+          onChange={(e) => setYoutubeLink(e.target.value)}
+          placeholder="Paste a YouTube link or ID"
+          style={{
+            padding: "10px",
+            borderRadius: 6,
+            border: "1px solid #ccc",
+            minHeight: 60,
+          }}
+        />
+      </div>
+      {/* represented the same way in InfoView.jsx */}
       <div /*style={{ display: "none" }}*/>
         {youtube && (
           <iframe
@@ -149,6 +179,56 @@ const EditView = () => {
             //tabIndex={-1}
           />
         )}
+      </div>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <label style={{ fontWeight: 500, marginBottom: 4 }}>
+          Instagram Account:
+        </label>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <input
+            type="text"
+            value={instagram}
+            onChange={(e) => setInstagram(e.target.value)}
+            placeholder="Paste an Instagram link or ID"
+            style={{
+              padding: "10px",
+              borderRadius: 6,
+              border: "1px solid #ccc",
+              flex: 1,
+            }}
+          />
+          <button
+            type="button"
+            style={{
+              padding: "6px 10px",
+              borderRadius: 5,
+              border: "1px solid #bbb",
+              background: "#f5f5f5",
+              color: "#444",
+              cursor: "pointer",
+              fontSize: "0.95rem",
+            }}
+            onClick={() => setInstagram("NONE")}
+          >
+            Does not have
+          </button>
+          <button
+            type="button"
+            style={{
+              padding: "6px 10px",
+              borderRadius: 5,
+              border: "1px solid #bbb",
+              background: "#e3f7e3",
+              color: "#1976d2",
+              cursor: "pointer",
+              fontSize: "0.95rem",
+            }}
+            onClick={() => setInstagram("SKIP")}
+          >
+            Skip
+          </button>
+        </div>
       </div>
       <div>
         <h3 style={{ margin: "12px 0 8px 0" }}>Select a Profile Picture:</h3>

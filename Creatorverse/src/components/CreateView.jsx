@@ -14,6 +14,7 @@ const CreateView = () => {
   const [uploadedPfp, setUploadedPfp] = useState(null);
   const [user, setUser] = useState(null);
   const [youtube, setYoutube] = useState(""); // Add this line
+  const [instagram, setInstagram] = useState("SKIP"); // Add this state
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -28,7 +29,7 @@ const CreateView = () => {
   };
 
   const handleSubmit = () => {
-    if (!name || !bio || !selectedPfp || !youtube) {
+    if (!name || !bio || !selectedPfp || !instagram) {
       alert("Please fill out all fields and select a profile picture.");
       return;
     }
@@ -41,6 +42,7 @@ const CreateView = () => {
       bio,
       pfp: selectedPfp,
       youtube: processedYoutube,
+      instagram, // add this line
     };
 
     const addUser = async () => {
@@ -51,6 +53,7 @@ const CreateView = () => {
           bio: newUser.bio,
           pfp: newUser.pfp,
           youtube: newUser.youtube,
+          instagram: newUser.instagram, // add this line
         })
         .select();
 
@@ -121,6 +124,55 @@ const CreateView = () => {
             border: "1px solid #ccc",
           }}
         />
+      </div>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <label style={{ fontWeight: 500, marginBottom: 4 }}>
+          Instagram Account:
+        </label>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <input
+            type="text"
+            value={instagram}
+            onChange={(e) => setInstagram(e.target.value)}
+            placeholder="Paste an Instagram link or ID"
+            style={{
+              padding: "10px",
+              borderRadius: 6,
+              border: "1px solid #ccc",
+              flex: 1,
+            }}
+          />
+          <button
+            type="button"
+            style={{
+              padding: "6px 10px",
+              borderRadius: 5,
+              border: "1px solid #bbb",
+              background: "#f5f5f5",
+              color: "#444",
+              cursor: "pointer",
+              fontSize: "0.95rem",
+            }}
+            onClick={() => setInstagram("NONE")}
+          >
+            Does not have
+          </button>
+          <button
+            type="button"
+            style={{
+              padding: "6px 10px",
+              borderRadius: 5,
+              border: "1px solid #bbb",
+              background: "#e3f7e3",
+              color: "#1976d2",
+              cursor: "pointer",
+            }}
+            onClick={() => setInstagram("SKIP")}
+          >
+            Skip
+          </button>
+        </div>
       </div>
       <div>
         <h3 style={{ margin: "12px 0 8px 0" }}>Select a Profile Picture:</h3>
@@ -198,9 +250,8 @@ const CreateView = () => {
         onClick={handleSubmit}
         style={{
           marginTop: 10,
-          padding: "10px 0",
+          padding: "10px",
           borderRadius: 6,
-          border: "none",
           background: "#1976d2",
           color: "#fff",
           fontWeight: 600,

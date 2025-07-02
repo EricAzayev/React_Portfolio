@@ -10,6 +10,7 @@ import NotFound from "./routes/NotFound.jsx";
 import CreatePost from "./routes/CreatePost.jsx";
 import EditPost from "./routes/EditPost.jsx";
 import PostDiscussion from "./routes/PostDiscussion.jsx";
+import Info from "./routes/Info.jsx";
 
 import App from "./App.jsx";
 
@@ -29,6 +30,7 @@ createRoot(document.getElementById("root")).render(
           />
 
           <Route index={false} path="/edit-post/:id" element={<EditPost />} />
+          <Route index={false} path="/info/:name/:id" element={<Info />} />
 
           <Route index={false} path="/create" element={<ProfileCreate />} />
           <Route path="*" element={<NotFound />} />

@@ -6,18 +6,18 @@
 }
 
 #front-page {
-  height: 100vh; /* full viewport height */
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* center vertically */
-  align-items: center; /* center horizontally */
+  justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
 #creators-section {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 equal-width columns */
-  gap: 20px; /* space between items */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
   padding: 40px;
 }
 
@@ -33,7 +33,7 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  background-color: #d0e0eb; /* Light gray background */
+  background-color: #d0e0eb;
 }
 
 @keyframes logo-spin {

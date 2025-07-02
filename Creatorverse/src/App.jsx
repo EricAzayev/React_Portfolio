@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { supabase } from "./client.js";
 import "./App.css";
-import { FaInstagram, FaYoutube, FaEdit } from "react-icons/fa";
+import { FaInstagram, FaYoutube, FaEdit, FaInfoCircle } from "react-icons/fa"; // Add FaInfoCircle
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -39,6 +39,11 @@ function App() {
 
   const handleEditClick = (id) => {
     navigate(`/edit/${id}`);
+  };
+
+  const handleInfoClick = (name, id) => {
+    console.log(name + id);
+    navigate(`/info/${name}/${id}`);
   };
 
   const handleCreateClick = () => {
@@ -131,7 +136,7 @@ function App() {
               overflow: "hidden",
               margin: "0 auto",
             }}
-            onClick={() => handleEditClick(user.id)}
+            // onClick={() => handleEditClick(user.id)}
           >
             <div
               style={{
@@ -152,6 +157,16 @@ function App() {
                   marginBottom: 12,
                 }}
               >
+                <FaInfoCircle
+                  style={{
+                    marginRight: 10,
+                    cursor: "pointer",
+                    fontSize: "1.2rem",
+                    color: "#00bcd4",
+                  }}
+                  title="Profile Info"
+                  onClick={() => handleInfoClick(user.name, user.id)}
+                />
                 <span
                   style={{
                     fontWeight: 700,
@@ -183,21 +198,34 @@ function App() {
               >
                 <a
                   href={
-                    user.instagram
-                      ? user.instagram.startsWith("http")
-                        ? user.instagram
-                        : `https://instagram.com/${user.instagram}`
+                    user.instagram &&
+                    user.instagram !== "NONE" &&
+                    user.instagram !== "SKIP"
+                      ? user.instagram
                       : "#"
                   }
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
                     color: "#E1306C",
-                    opacity: user.instagram ? 1 : 0.4,
+                    opacity:
+                      user.instagram &&
+                      user.instagram !== "NONE" &&
+                      user.instagram !== "SKIP"
+                        ? 1
+                        : 0.4,
                     fontSize: "1.7rem",
                   }}
                   onClick={(e) => {
-                    if (!user.instagram) e.preventDefault();
+                    if (!user.instagram || user.instagram === "NONE") {
+                      e.preventDefault();
+                      alert("This user does not have an Instagram account");
+                    } else if (user.instagram === "SKIP") {
+                      e.preventDefault();
+                      alert(
+                        "This user has skipped providing an Instagram account"
+                      );
+                    }
                     e.stopPropagation();
                   }}
                   title="Instagram"
@@ -205,13 +233,10 @@ function App() {
                   <FaInstagram />
                 </a>
                 <a
-                  href={
-                    user.youtube
-                      ? user.youtube.startsWith("http")
-                        ? user.youtube
-                        : `https://youtube.com/${user.youtube}`
-                      : "#"
-                  }
+                  href={user.youtube.replace(
+                    "https://www.youtube.com/embed/",
+                    "https://youtu.be/"
+                  )}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
@@ -230,7 +255,7 @@ function App() {
               </div>
               <div
                 style={{
-                  fontSize: "1.08rem",
+                  fontSize: "1.00rem",
                   color: "#f3f3f3",
                   minHeight: "48px",
                   maxHeight: "72px",
@@ -293,8 +318,6 @@ function App() {
                 padding: "10px 20px",
                 backgroundColor: "blue",
                 color: "white",
-                border: "none",
-                borderRadius: "5px",
                 cursor: "pointer",
               }}
             >
@@ -311,8 +334,6 @@ function App() {
                 padding: "10px 20px",
                 backgroundColor: "green",
                 color: "white",
-                border: "none",
-                borderRadius: "5px",
                 cursor: "pointer",
               }}
             >
@@ -383,7 +404,6 @@ function App() {
               <p
                 style={{
                   color: "#007BFF",
-                  fontWeight: "bold",
                   marginBottom: "10px",
                 }}
               >
@@ -414,8 +434,6 @@ function App() {
                   padding: "10px 20px",
                   backgroundColor: "#28a745",
                   color: "white",
-                  border: "none",
-                  borderRadius: "5px",
                   cursor: "pointer",
                   fontSize: "14px",
                   boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
