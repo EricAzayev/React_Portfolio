@@ -66,4 +66,19 @@ const renderGifts = async () => {
   }
 };
 
-renderGifts();
+const giftsLastSegment = window.location.pathname.split('/').filter(Boolean).pop() || '';
+
+if (giftsLastSegment && giftsLastSegment !== "404.html") {
+  window.location.href = "/404.html";
+}
+else if(giftsLastSegment !== "404.html"){
+  renderGifts();
+}
+
+// requestedURL = window.location.href.split('/').pop();
+// if (requestedURL) {
+//   window.location.href = "../404.html";
+// }
+// else{
+//   renderGifts();
+// }
