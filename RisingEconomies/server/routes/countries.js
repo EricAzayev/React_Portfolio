@@ -1,5 +1,7 @@
 import express from "express";
 import path from "path";
+import CountriesController from "../controllers/countries.js";
+
 
 import { fileURLToPath } from "url";
 
@@ -9,9 +11,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const router = express.Router();
-router.get("/", (req, res) => {
-  res.status(200).json(countryData);
-});
+
+router.get("/", CountriesController.getCountries);
+
+// router.get("/", (req, res) => {
+//   res.status(200).json(countryData);
+// });
 
 router.get("/:name", (req, res) => { //creating get route for specific gift by name
   res.status(200).sendFile(path.resolve(__dirname, "../public/country.html"));
