@@ -1,13 +1,17 @@
 import express from "express";
 import "./config/dotenv.js"; // Load environment variables from .env file
+import cors from 'cors'
 
 
 const app = express();
 import giftsRouter from "./routes/gifts.js";
 //middleware configs process requests before they reach the route handlers
-app.use("/public", express.static("./public")); //server any images from public directory
 
-app.use("/scripts", express.static("./public/scripts")); //server any scripts from public/scripts directory
+app.use(cors());
+
+// app.use("/public", express.static("./public")); //server any images from public directory
+
+// app.use("/scripts", express.static("./public/scripts")); //server any scripts from public/scripts directory
 app.use("/gifts", giftsRouter); // Mount gifts router after middleware configuration
 
 app.get("/", (req, res) => {
