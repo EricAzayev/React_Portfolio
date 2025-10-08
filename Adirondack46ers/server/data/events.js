@@ -1,6 +1,64 @@
 //LOAD THE .ENV!!!
 
 const eventData = [
+  // Past events (to show crossed out styling)
+  {
+    date: "2025-10-01",
+    mountain: "Mount Marcy",
+    organizer: "AdirondackExplorers",
+    register: 25,
+    miles: "14.8 miles",
+    startTime: "6:00 AM",
+    duration: "8-10 hours",
+  },
+  {
+    date: "2025-10-05",
+    mountain: "Algonquin Peak",
+    organizer: "HighPeakHikers",
+    register: 18,
+    miles: "10.1 miles",
+    startTime: "7:30 AM",
+    duration: "6-8 hours",
+  },
+  // Very soon events (imminent - red countdown with warning)
+  {
+    date: "2025-10-09",
+    mountain: "Whiteface Mountain",
+    organizer: "UrgentHikers",
+    register: 15,
+    miles: "8.4 miles",
+    startTime: "7:00 AM",
+    duration: "5-7 hours",
+  },
+  {
+    date: "2025-10-10",
+    mountain: "Dix Mountain",
+    organizer: "QuickPeakBaggers",
+    register: 12,
+    miles: "13.2 miles",
+    startTime: "6:30 AM",
+    duration: "8-9 hours",
+  },
+  // Coming soon (within a week - orange countdown)
+  {
+    date: "2025-10-12",
+    mountain: "Mount Haystack",
+    organizer: "TrailBlazersNY",
+    register: 20,
+    miles: "17.8 miles",
+    startTime: "5:30 AM",
+    duration: "10-12 hours",
+  },
+  {
+    date: "2025-10-14",
+    mountain: "Mount Skylight",
+    organizer: "PeakBaggers",
+    register: 15,
+    miles: "17.9 miles",
+    startTime: "6:00 AM",
+    duration: "10-12 hours",
+  },
+  // Future events (normal green countdown)
   {
     date: "2025-10-15",
     mountain: "Mount Marcy",

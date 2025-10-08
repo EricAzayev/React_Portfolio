@@ -1,96 +1,779 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  --primary-color: #2c5f2d;
+  --secondary-color: #97bf0d;
+  --accent-color: #4a7c59;
+  --bg-color: #f5f5f5;
+  --card-bg: #ffffff;
+  --text-primary: #2d2d2d;
+  --text-secondary: #666;
+  --border-color: #e0e0e0;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-#app {
-  max-width: 1280px;
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header Styles */
+.header {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+  color: white;
+  padding: 2rem 2rem 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.header-content {
+  max-width: 1400px;
   margin: 0 auto;
+}
+
+.title-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.site-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.site-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.95;
+  font-weight: 300;
+}
+
+.header-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+}
+
+.tab {
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  color: white;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  background-color: transparent;
+}
+
+.tab:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.tab.active {
+  background-color: white;
+  color: var(--primary-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Month Selector */
+.month-selector {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+}
+
+.current-month {
+  font-size: 1.1rem;
+  font-weight: 600;
+  min-width: 180px;
+  text-align: center;
+  color: white;
+}
+
+.month-arrow {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.month-arrow:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.month-arrow:active {
+  transform: scale(0.95);
+}
+
+/* Page Content */
+.page-content {
+  flex: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  width: 100%;
+}
+
+/* The Six Page with Background - No Overlay */
+.the-six-page {
+  max-width: 100%;
+  background-size: contain;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  position: relative;
+  min-height: 150vh;
+  padding-bottom: 4rem;
+}
+
+.the-six-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+.the-six-page .page-header,
+.the-six-page .events-grid,
+.the-six-page .loading,
+.the-six-page .no-events {
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Enhanced text visibility on The Six page without blocking background */
+.the-six-page .page-header h2,
+.the-six-page .page-description {
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8),
+               0 0 20px rgba(255, 255, 255, 0.8);
+  color: white;
+  font-weight: 700;
+}
+
+.the-six-page .event-card {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.the-six-page .no-events p {
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8),
+               0 0 20px rgba(255, 255, 255, 0.8);
+  color: white;
+  font-weight: 600;
+}
+
+/* All Hikes Page with Background - No Overlay */
+.all-hikes-page {
+  max-width: 100%;
+  background-size: contain;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  position: relative;
+  min-height: 150vh;
+  padding-bottom: 4rem;
+}
+
+.all-hikes-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+.all-hikes-page .page-header,
+.all-hikes-page .events-grid,
+.all-hikes-page .loading,
+.all-hikes-page .no-events {
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Enhanced text visibility on All Hikes page without blocking background */
+.all-hikes-page .page-header h2,
+.all-hikes-page .page-description {
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8),
+               0 0 20px rgba(255, 255, 255, 0.8);
+  color: white;
+  font-weight: 700;
+}
+
+.all-hikes-page .event-card {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.all-hikes-page .no-events p {
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8),
+               0 0 20px rgba(255, 255, 255, 0.8);
+  color: white;
+  font-weight: 600;
+}
+
+/* Mountain Selector Page */
+.mountain-selector-page {
+  max-width: 100%;
+  background-size: contain;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  position: relative;
+  min-height: 150vh;
+  padding-bottom: 4rem;
+}
+
+.mountain-selector-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+.mountain-selector-page .page-header,
+.mountain-selector-page .mountains-grid {
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mountain-selector-page .page-header h2,
+.mountain-selector-page .page-description {
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8),
+               0 0 20px rgba(255, 255, 255, 0.8);
+  color: white;
+  font-weight: 700;
+}
+
+/* Mountains Grid */
+.mountains-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+/* Mountain Card */
+.mountain-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
   padding: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.mountain-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.mountain-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  border-color: var(--primary-color);
+}
+
+.mountain-card:hover::before {
+  transform: scaleX(1);
+}
+
+.mountain-card.top-six {
+  border-color: var(--secondary-color);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(151, 191, 13, 0.1));
+}
+
+.mountain-card-content {
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #f7df1eaa);
+.mountain-card-name {
+  font-size: 1.4rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-weight: 700;
 }
 
-.card {
-  padding: 2em;
+.top-six-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--secondary-color), #bad55a);
+  color: var(--text-primary);
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.read-the-docs {
-  color: #888;
-}
-
-button {
+.mountain-card-info {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: rgba(44, 95, 45, 0.05);
   border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.event-count {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.view-details-btn {
+  margin-top: 1rem;
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.mountain-card:hover .view-details-btn {
+  color: var(--accent-color);
+  transform: translateX(5px);
+}
+
+/* Mountain Detail Page */
+.mountain-detail-page {
+  max-width: 100%;
+  background-size: contain;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  position: relative;
+  min-height: 150vh;
+  padding-bottom: 4rem;
+}
+
+.mountain-detail-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+.mountain-detail-page .page-header,
+.mountain-detail-page .events-grid,
+.mountain-detail-page .no-events {
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mountain-detail-page .page-header h2,
+.mountain-detail-page .page-description {
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8),
+               0 0 20px rgba(255, 255, 255, 0.8);
+  color: white;
+  font-weight: 700;
+}
+
+.mountain-detail-page .event-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+.mountain-detail-page .no-events p {
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8),
+               0 0 20px rgba(255, 255, 255, 0.8);
+  color: white;
+  font-weight: 600;
+}
+
+/* Back Link */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(44, 95, 45, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.back-link:hover {
+  background: rgba(44, 95, 45, 0.95);
+  transform: translateX(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.mountain-detail-header {
+  margin-top: 1rem;
+}
+
+.top-six-badge-large {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--secondary-color), #bad55a);
+  color: var(--text-primary);
+  padding: 0.6rem 1.5rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 1rem 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.page-header h2 {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.page-description {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+}
+
+/* Loading & No Events */
+.loading, .no-events {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-secondary);
+}
+
+.loading {
+  font-size: 1.3rem;
+  color: var(--primary-color);
+}
+
+.no-events p {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.no-events .hint {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* Events Grid */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.event-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+}
+
+.event-card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-4px);
+}
+
+.event-header {
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 1rem;
+}
+
+.mountain-name {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.date-badge {
+  background: linear-gradient(135deg, var(--secondary-color), #bad55a);
+  color: var(--text-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.event-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.detail-value {
+  font-weight: 500;
+  color: var(--text-primary);
+  text-align: right;
+}
+
+/* Countdown Styles */
+.countdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  color: white;
+  font-weight: 600;
+}
+
+.countdown-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  opacity: 0.9;
+}
+
+.countdown-time {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* Countdown variants */
+.countdown-past {
+  background: linear-gradient(135deg, #757575, #9e9e9e);
+}
+
+.countdown-future {
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+}
+
+.countdown-soon {
+  background: linear-gradient(135deg, #ff9800, #ff5722);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.countdown-imminent {
+  background: linear-gradient(135deg, #f44336, #d32f2f);
+  animation: pulse-urgent 1s ease-in-out infinite;
+}
+
+.countdown-urgent {
+  animation: color-flash 1s ease-in-out infinite;
+}
+
+.past-time {
+  font-style: italic;
+  opacity: 0.9;
+}
+
+/* Past Event Styling */
+.event-past {
+  opacity: 0.7;
+  position: relative;
+  border: 2px dashed #999 !important;
+  background: rgba(200, 200, 200, 0.3) !important;
+}
+
+.event-past::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  right: 5%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #999, transparent);
+  transform: translateY(-50%);
+  opacity: 0.5;
+}
+
+.past-event-text {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.event-past .date-badge {
+  background: linear-gradient(135deg, #999, #757575) !important;
+  opacity: 0.8;
+}
+
+/* Animations */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
   }
-  a:hover {
-    color: #747bff;
+  50% {
+    box-shadow: 0 0 20px rgba(255, 152, 0, 0.8);
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+@keyframes pulse-urgent {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(244, 67, 54, 0.6);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(244, 67, 54, 1);
+    transform: scale(1.02);
+  }
+}
+
+@keyframes color-flash {
+  0%, 100% {
+    color: white;
+  }
+  50% {
+    color: #ffeb3b;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header {
+    padding: 1.5rem 1rem;
+  }
+
+  .site-title {
+    font-size: 2rem;
+  }
+
+  .site-subtitle {
+    font-size: 1rem;
+  }
+
+  .header-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .tabs {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .tab {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .month-selector {
+    justify-content: center;
+  }
+
+  .page-content {
+    padding: 2rem 1rem;
+  }
+
+  .page-header h2 {
+    font-size: 2rem;
+  }
+
+  .events-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .current-month {
+    min-width: 150px;
+    font-size: 1rem;
+  }
+
+  .mountains-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-title {
+    font-size: 1.6rem;
+  }
+
+  .tabs {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .tab {
+    text-align: center;
+  }
+
+  .mountain-name {
+    font-size: 1.3rem;
   }
 }
