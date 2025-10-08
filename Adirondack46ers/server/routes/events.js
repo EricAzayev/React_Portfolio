@@ -1,6 +1,6 @@
 import express from "express";
 import path from "path";
-import GiftsController from "../controllers/gifts.js";
+import EventsController from "../controllers/events.js";
 
 
 
@@ -10,12 +10,12 @@ import GiftsController from "../controllers/gifts.js";
 
 const router = express.Router();
 console.log("route running");
-router.get("/", GiftsController.getGifts);
+router.get("/", EventsController.getEvents);
 // router.get("/", (req, res) => {
 //   res.status(200).json(giftData);
 // });
 
-router.get('/:giftId', GiftsController.getGiftById);
+router.get('/:eventId', EventsController.getEventById);
 //router.get("/:giftId", (req, res) => {
   //router.get('/:giftId', GiftsController.getGiftByI)
   
